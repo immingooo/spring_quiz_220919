@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quiz.lesson02.bo.StoreBO;
 import com.quiz.lesson02.model.Store;
 
-@RestController
+@RestController  // @Controller + @ResponseBody
 public class Lesson02Quiz01RestController {
 	
 	@Autowired
@@ -17,8 +17,9 @@ public class Lesson02Quiz01RestController {
 
 	// http://localhost:8080/lesson02/quiz01
 	@RequestMapping("/lesson02/quiz01")
-	public List<Store> quiz01() {
+	public List<Store> quiz01() { // 여기서 리턴값은 응답값(뷰에 뿌려지는 것)
 		List<Store> storeList = storeBO.getStoreList();
 		return storeList;
+		// return storeBO.getStoreList();
 	}
 }

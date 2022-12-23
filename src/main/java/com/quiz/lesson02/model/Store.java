@@ -2,7 +2,7 @@ package com.quiz.lesson02.model;
 
 import java.util.Date;
 
-public class Store {
+public class Store { // 일반 자바빈. 데이터를 저장하는 클래스
 	
 	private int id;
 	private String name;
