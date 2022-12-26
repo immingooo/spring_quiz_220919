@@ -10,7 +10,10 @@ import com.quiz.lesson03.model.RealEstate;
 @Repository
 public interface RealEstateDAO {
 
-	public RealEstate selectRealEstate(int id);
-	public List<RealEstate> selectRealEstateList(int rentPrice);
-	public List<RealEstate> selectRealEstateList2(@Param("area") int area, @Param("price") int price);
+	public RealEstate selectRealEstateById(int id);
+	public List<RealEstate> selectRealEstateListByRentPrice(int rentPrice);
+	public List<RealEstate> selectRealEstateListByAreaPrice(
+			// @Param 어노테이션에 의해서 하나의 맵이 된 것
+			@Param("area") int area, 
+			@Param("price") int price);
 }
