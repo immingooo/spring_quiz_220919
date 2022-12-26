@@ -89,7 +89,7 @@
  		)
  	</insert>
  	
- 	<insert id="addRealEstateAsFiled" parameterType="map">
+ 	<insert id="insertRealEstateAsFiled" parameterType="map">
  		 INSERT INTO `real_estate`
  		(
  			`realtorId`
