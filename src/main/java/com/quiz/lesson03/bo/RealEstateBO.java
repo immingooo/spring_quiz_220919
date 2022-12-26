@@ -31,4 +31,15 @@ public class RealEstateBO {
 	public List<RealEstate> getRealEstateListByAreaPrice(int area, int price) { // input이 있어야만 결과를 가져올 수 있어서 int area랑 int price로 해준다.
 		return realEstateDAO.selectRealEstateListByAreaPrice(area, price);
 	}
+	
+	// input: RealEstate
+	// output: int(성공한 행의 개수)
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateDAO.insertRealEstate(realEstate);
+	}
+	
+	// addRealEstateAsFiled(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120)
+	public int addRealEstateAsFiled(int realtorId, String address, int area, String type, int price, Integer rentPrice) {
+		return realEstateDAO.insertRealEstateAsFiled(realtorId, address, area, type, price, rentPrice);
+	}
 }

@@ -63,4 +63,54 @@
 		ORDER BY
 			`id` DESC <!-- index문제로 조회를 빠르게 하기위해서는 id로 하는게 효율적이다. -->
  	</select>
+ 	
+ 	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.model.RealEstate">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="addRealEstateAsFiled" parameterType="map">
+ 		 INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  </mapper>
