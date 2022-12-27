@@ -38,8 +38,17 @@ public class RealEstateBO {
 		return realEstateDAO.insertRealEstate(realEstate);
 	}
 	
+	// BO메소드는 재활용될 수 있다는 걸 생각해둬야 함. 다른 곳에서 이 메소드를 사용할 수도 있음
 	// addRealEstateAsFiled(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120)
 	public int addRealEstateAsFiled(int realtorId, String address, int area, String type, int price, Integer rentPrice) {
 		return realEstateDAO.insertRealEstateAsFiled(realtorId, address, area, type, price, rentPrice);
+	}
+	
+	public int updateRealEstateById(int id, String type, int price) {
+		return realEstateDAO.updateRealEstateById(id, type, price);
+	}
+	
+	public void deleteRealEstateById(int id) {
+		realEstateDAO.deleteRealEstateById(id);
 	}
 }
