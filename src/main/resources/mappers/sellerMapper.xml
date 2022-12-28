@@ -21,4 +21,32 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<select id="selectLastSellerInfo" resultType="com.quiz.lesson04.model.Seller">
+ 		SELECT
+ 			`id`
+ 			,`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`seller`
+		ORDER BY `id` DESC
+		LIMIT 1
+ 	</select>
+ 	
+ 	<select id="selectLastSellerInfoById" parameterType="int" resultType="com.quiz.lesson04.model.Seller">
+ 		SELECT
+ 			`id`
+ 			,`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`seller`
+		WHERE
+			`id` = #{id}
+ 	</select>
  </mapper>
