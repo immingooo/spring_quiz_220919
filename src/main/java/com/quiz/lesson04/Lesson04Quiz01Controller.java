@@ -30,7 +30,7 @@ public class Lesson04Quiz01Controller {
 	public String addSeller( // 파라미터들이 잘 들어오나 확인하고 응답값화면으로 연결이 잘 됐나(넘어가는지) 디버깅으로 확인하기
 			@RequestParam("nickname") String nickname,
 			@RequestParam(value="profileImageUrl", required=false) String profileImageUrl, // 대문자로 시작하는 자료형은 모두 null허용 가능(String은 원래 null허용)
-			@RequestParam(value="temperature", required=false) Double temperature) {
+			@RequestParam(value="temperature", required=false) Double temperature) { // 사용자가 아무것도 입력하지 않았을 때 null로 들어올 수 있어서 Double(default값은 DB에서 채워질걸.?)
 		
 		// DB insert
 		sellerBO.addSeller(nickname, profileImageUrl, temperature);

@@ -16,7 +16,7 @@
  		(
  			#{nickname}
  			,#{profileImageUrl}
- 			,#{temperature}
+ 			,#{temperature} <!-- 여기서 null이면 default값으로 채워지는 건가.? -->
  			, NOW()
  			, NOW()
  		)
