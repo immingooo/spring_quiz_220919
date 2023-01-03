@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,38 @@
 								<th>풍속</th>
 							</tr>
 						</thead>
-						<tbody></tbody>
+						<tbody>
+						<c:forEach var="content" items="${weatherHistory}">
+							<tr>
+								<td>
+									<fmt:formatDate value="${content.date}" pattern="yyyy년 M월 d일"/>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${content.weather eq '맑음'}">
+											<img src="/img/lesson05/sunny.jpg" alt="맑음 이미지">
+										</c:when>
+										<c:when test="${content.weather eq '구름조금'}">
+											<img src="/img/lesson05/partlyCloudy.jpg" alt="구름조금 이미지">
+										</c:when>
+										<c:when test="${content.weather eq '흐림'}">
+											<img src="/img/lesson05/cloudy.jpg" alt="흐림 이미지">
+										</c:when>
+										<c:when test="${content.weather eq '비'}">
+											<img src="/img/lesson05/rainy.jpg" alt="비 이미지">
+										</c:when>
+										<c:otherwise>
+											${content.weather}
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${content.temperatures}℃</td>
+								<td>${content.precipitation}mm</td>
+								<td>${content.microDust}</td>
+								<td>${content.windSpeed}km/h</td>
+							</tr>
+						</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</section>

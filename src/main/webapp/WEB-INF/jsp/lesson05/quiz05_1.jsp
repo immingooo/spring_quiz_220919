@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +40,12 @@
 			<section class="content col-10">
 				<div class="p-4">
 					<h4 class="font-weight-bold">날씨 입력</h4>
-					<form method="post" action="/lesson05/          " class="p-4">
+					<form method="post" action="/lesson05/quiz05_2" class="p-4">
 						<div class="form-group d-flex justify-content-between">
 							<div class="d-flex col-4 align-items-center">
 								<label for="date" class="col-3 p-0 m-0">날짜</label>
 								<input type="text" name="date" id="date" class="form-control col-9">
+								<%-- <fmt:parseDate var='date' value='${date}' pattern='yyyy년 M월 d일'/> --%>
 							</div>
 							<div class="d-flex col-4 align-items-center">
 								<label class="col-3 p-0 m-0">날씨</label>
@@ -112,9 +115,8 @@
 	</div>
 	
 	<script type="text/javascript">
-		$('#date').datepicker({
-			dateFormat:"yy년 m월 d일"
-		});
+		
+		$('#date').datepicker();
 	</script>
 </body>
 </html>

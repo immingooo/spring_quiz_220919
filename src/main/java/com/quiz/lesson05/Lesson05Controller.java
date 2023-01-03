@@ -5,17 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.quiz.lesson05.bo.Quiz05BO;
 import com.quiz.lesson05.model.Member;
+import com.quiz.lesson05.model.WeatherHistory;
 
 @Controller
 @RequestMapping("/lesson05")
 public class Lesson05Controller {
+	
+	@Autowired
+	private Quiz05BO quiz05BO;
 
 	// http://localhost:8080/lesson05/quiz01
 	@GetMapping("/quiz01")
@@ -184,10 +191,12 @@ public class Lesson05Controller {
 	
 	// http://localhost:8080/lesson05/quiz05
 	@GetMapping("/quiz05")
-	public String quiz05() {
+	public String quiz05(Model model) {
 		// DB select
+		List<WeatherHistory> weatherHistory = quiz05BO.getWeatherHistory();
 		
 		// model
+		model.addAttribute("weatherHistory", weatherHistory);
 		
 		return "lesson05/quiz05";
 	}
@@ -199,5 +208,12 @@ public class Lesson05Controller {
 	}
 	
 	// form에서 넘어오는 값들 DB insert메소드
-	//@PostMapping("")
+	@PostMapping("/quiz05_2")
+	public String quiz05_2(@ModelAttribute WeatherHistory weatherHistory) {
+		// DB insert
+		quiz05BO.addWheatherHistory(weatherHistory);
+		
+		return "lesson05/quiz05";
+	}
+	
 }
