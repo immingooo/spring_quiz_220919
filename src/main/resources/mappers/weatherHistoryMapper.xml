@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.quiz.lesson05.dao.Quiz05DAO">
- 	<select id="selectWeatherHistory" resultType="com.quiz.lesson05.model.WeatherHistory">
+ 	<select id="selectWeatherHistoryList" resultType="com.quiz.lesson05.model.WeatherHistory">
  		SELECT
  			`id`
 			,`date`
@@ -18,7 +18,53 @@
 			`weather_history`
  	</select>
  	
- 	<insert>
+ 	<insert id="insertWeatherHistory" parameterType="com.quiz.lesson05.model.WeatherHistory">
+ 		INSERT INTO `weather_history`
+ 		(
+ 			`date`
+			,`weather`
+			,`temperatures`
+			,`precipitation`
+			,`microDust`
+			,`windSpeed`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{date}
+ 			, #{weather}
+ 			, #{temperatures}
+ 			, #{precipitation}
+ 			, #{microDust}
+ 			, #{windSpeed}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  	
+ 	<insert id="insertWeatherHistoryAsFiled" parameterType="map">
+ 	 	INSERT INTO `weather_history`
+ 		(
+ 			`date`
+			,`weather`
+			,`temperatures`
+			,`precipitation`
+			,`microDust`
+			,`windSpeed`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{date}
+ 			, #{weather}
+ 			, #{temperatures}
+ 			, #{precipitation}
+ 			, #{microDust}
+ 			, #{windSpeed}
+ 			, NOW()
+ 			, NOW()
+ 		)
  	</insert>
  </mapper>

@@ -1,17 +1,19 @@
 package com.quiz.lesson05;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quiz.lesson05.bo.Quiz05BO;
 import com.quiz.lesson05.model.Member;
@@ -193,10 +195,10 @@ public class Lesson05Controller {
 	@GetMapping("/quiz05")
 	public String quiz05(Model model) {
 		// DB select
-		List<WeatherHistory> weatherHistory = quiz05BO.getWeatherHistory();
+		List<WeatherHistory> weatherHistoryList = quiz05BO.getWeatherHistoryList();
 		
 		// model
-		model.addAttribute("weatherHistory", weatherHistory);
+		model.addAttribute("weatherHistory", weatherHistoryList);
 		
 		return "lesson05/quiz05";
 	}
@@ -209,11 +211,18 @@ public class Lesson05Controller {
 	
 	// form에서 넘어오는 값들 DB insert메소드
 	@PostMapping("/quiz05_2")
-	public String quiz05_2(@ModelAttribute WeatherHistory weatherHistory) {
+	public String quiz05_2(
+			@RequestParam("date") @DateTimeFormat(pattern="yyyy년 M월 d일") Date date,
+			@RequestParam("weather") String weather,
+			@RequestParam("microDust") String microDust,
+			@RequestParam("temperatures") double temperatures,
+			@RequestParam("precipitation") double precipitation,
+			@RequestParam("windSpeed") double windSpeed) {
 		// DB insert
-		quiz05BO.addWheatherHistory(weatherHistory);
+		//quiz05BO.addWeatherHistory(weatherHistory);
+		quiz05BO.addWeatherHistoryAsFiled(date, weather, microDust, temperatures, precipitation, windSpeed);
 		
-		return "lesson05/quiz05";
+		return "redirect:/lesson05/quiz05";
 	}
 	
 }

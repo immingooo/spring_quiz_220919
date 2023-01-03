@@ -45,7 +45,6 @@
 							<div class="d-flex col-4 align-items-center">
 								<label for="date" class="col-3 p-0 m-0">날짜</label>
 								<input type="text" name="date" id="date" class="form-control col-9">
-								<%-- <fmt:parseDate var='date' value='${date}' pattern='yyyy년 M월 d일'/> --%>
 							</div>
 							<div class="d-flex col-4 align-items-center">
 								<label class="col-3 p-0 m-0">날씨</label>
@@ -115,8 +114,9 @@
 	</div>
 	
 	<script type="text/javascript">
-		
-		$('#date').datepicker();
+		$('#date').datepicker({
+			dateFormat:"yy년 m월 d일"
+		});
 	</script>
 </body>
 </html>

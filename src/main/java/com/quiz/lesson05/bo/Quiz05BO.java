@@ -1,5 +1,6 @@
 package com.quiz.lesson05.bo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,21 @@ public class Quiz05BO {
 	@Autowired
 	private Quiz05DAO quiz05DAO;
 	
-	public List<WeatherHistory> getWeatherHistory() {
-		 return quiz05DAO.selectWeatherHistory();
+	public List<WeatherHistory> getWeatherHistoryList() {
+		 return quiz05DAO.selectWeatherHistoryList();
 	}
 	
-	public void addWheatherHistory(WeatherHistory weatherHistory) {
-		
+	public void addWeatherHistory(WeatherHistory weatherHistory) {
+		quiz05DAO.insertWeatherHistory(weatherHistory);
+	}
+	
+	public void addWeatherHistoryAsFiled(
+			Date date,
+			String weather,
+			String microDust,
+			double temperatures,
+			double precipitation,
+			double windSpeed) {
+		quiz05DAO.insertWeatherHistoryAsFiled(date, weather, microDust, temperatures, precipitation, windSpeed);
 	}
 }
