@@ -1,2 +1,5 @@
 @charset "UTF-8";
-body {background-color: #999;}
+#wrap {width: 1200px; height: 1200px; margin:auto;}
+.contents {min-height: 600px;}
+.menu {background-color: #6495ED; padding:0}
+footer {height:100px;}

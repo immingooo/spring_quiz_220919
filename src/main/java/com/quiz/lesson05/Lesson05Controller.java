@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quiz.lesson05.model.Member;
@@ -180,4 +181,23 @@ public class Lesson05Controller {
 		
 		return "lesson05/quiz04";
 	}
+	
+	// http://localhost:8080/lesson05/quiz05
+	@GetMapping("/quiz05")
+	public String quiz05() {
+		// DB select
+		
+		// model
+		
+		return "lesson05/quiz05";
+	}
+	
+	// http://localhost:8080/lesson05/quiz05_1
+	@GetMapping("/quiz05_1")
+	public String quiz05_1() {
+		return "lesson05/quiz05_1";
+	}
+	
+	// form에서 넘어오는 값들 DB insert메소드
+	//@PostMapping("")
 }
