@@ -57,6 +57,7 @@
  		)
  		VALUES
  		(
+ 			<!-- date가 String으로 들어가지만 DB에는 Date타입으로 변환돼서 들어간다. -->
  			#{date}
  			, #{weather}
  			, #{temperatures}

@@ -19,6 +19,8 @@ import com.quiz.lesson05.bo.Quiz05BO;
 import com.quiz.lesson05.model.Member;
 import com.quiz.lesson05.model.WeatherHistory;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/lesson05")
 public class Lesson05Controller {
@@ -204,24 +206,30 @@ public class Lesson05Controller {
 	}
 	
 	// http://localhost:8080/lesson05/quiz05_1
+	// 추가 화면
 	@GetMapping("/quiz05_1")
 	public String quiz05_1() {
 		return "lesson05/quiz05_1";
 	}
 	
 	// form에서 넘어오는 값들 DB insert메소드
+	// 추가 => 결과 목록화면으로 이동(리다이렉트)
 	@PostMapping("/quiz05_2")
 	public String quiz05_2(
 			@RequestParam("date") @DateTimeFormat(pattern="yyyy년 M월 d일") Date date,
+			//@RequestParam("date") String date, // String으로 인서트를 해도 DB에서는 date타입으로 변환이돼서 잘 저장된다.(select일 땐 전혀 상관없이 date타입으로 불러온다.)
 			@RequestParam("weather") String weather,
 			@RequestParam("microDust") String microDust,
 			@RequestParam("temperatures") double temperatures,
 			@RequestParam("precipitation") double precipitation,
-			@RequestParam("windSpeed") double windSpeed) {
+			@RequestParam("windSpeed") double windSpeed,
+			HttpServletResponse response) {
 		// DB insert
 		//quiz05BO.addWeatherHistory(weatherHistory);
 		quiz05BO.addWeatherHistoryAsFiled(date, weather, microDust, temperatures, precipitation, windSpeed);
 		
+		// 목록 화면으로 리타이렉트 2가지 방법
+		//response.sendRedirect("/lesson05/quiz05"); // 예외처리는 위로 던지는 걸로
 		return "redirect:/lesson05/quiz05";
 	}
 	

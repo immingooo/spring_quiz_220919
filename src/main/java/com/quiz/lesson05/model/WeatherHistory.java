@@ -2,8 +2,11 @@ package com.quiz.lesson05.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class WeatherHistory {
 	private int id;
+	//@DateTimeFormat(pattern="yyyy년 M월 d일") 객체로 한번에 받고싶으면 여기에 넣고 사용하기
 	private Date date;
 	private String weather;
 	private double temperatures;

@@ -113,9 +113,11 @@
 		</footer>
 	</div>
 	
-	<script type="text/javascript">
-		$('#date').datepicker({
-			dateFormat:"yy년 m월 d일"
+	<script>
+		$(document).ready(function() {
+			$('input[name=date]').datepicker({
+				dateFormat:"yy년 m월 d일"
+			});
 		});
 	</script>
 </body>
