@@ -21,7 +21,7 @@
 		<label for="url">주소</label>
 		<input type="text" id="url" class="form-control">
 		
-		<input type="button" id="add" class="btn btn-success mt-3" value="추가">
+		<input type="button" id="add" class="btn btn-success mt-3 w-100" value="추가">
 	</div>
 	
 	<script>
