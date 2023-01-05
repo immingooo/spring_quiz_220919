@@ -19,13 +19,41 @@
 		<label for="name">제목</label>
 		<input type="text" id="name" class="form-control">
 		<label for="url">주소</label>
-		<input type="text" id="url" class="form-control">
+		<div class="d-flex">
+			<input type="text" id="url" class="form-control">
+			<button type="button" id="urlCheckBtn" class="btn btn-info ml-3">중복확인</button>
+		</div>
+		<small id="urlStatusArea"></small>
 		
 		<input type="button" id="add" class="btn btn-success mt-3 w-100" value="추가">
 	</div>
 	
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function() {			
+			$('#urlCheckBtn').on('click', function() {
+				let url = $('#url').val().trim();
+				console.log(url);
+				
+				$.ajax({
+					// Request
+					type:"get"
+					, url:"/lesson06/quiz01/add_favorite"
+					, data:{"url":url}
+				
+					// Response
+					, success:function(data) { // String JSON => object으로 변환해줌.
+						//alert(data); {딕셔너리}형태로 
+						alert(data.is_duplication)
+						if (data.is_duplication) {
+							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>')
+						}
+					}
+					, error:function(e) {
+						alert("에러" + e);
+					}
+				});
+			});
+			
 			$('#add').on('click', function() {
 				//alert('얼럿창 확인하기');
 				// validation 처리
@@ -45,8 +73,9 @@
 					return;
 				}
 				
+				// http로 시작하지 않고, https로도 시작하지 않으면 alert
 				if (!url.startsWith("http") && !url.startsWith("https")) {
-					alert("http또는 https프로토콜로 시작하는 주소를 입력해주세요")
+					alert("http또는 https프로토콜로 시작하는 주소를 입력해주세요") // 주소 형식이 잘못되었습니다.
 					return;
 				}
 				
@@ -59,12 +88,17 @@
 					, data:{"name":name, "url":url}
 				
 					// Response
-					, success:function(data) {
-						console.log(data);
-						location.href="/lesson06/quiz01/after_add_favorite_view";
+					, success:function(data) { // String JSON => object으로 변환해줌.
+						//alert(data); {딕셔너리}형태로 
+						if (data.is_duplication) {
+							alert(data.is_duplication)
+							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>')
+						} else {
+							location.href="/lesson06/quiz01/after_add_favorite_view";
+						}
 					}
 					, error:function(e) {
-						alert("에러");
+						alert("에러" + e);
 					}
 				});
 			});
