@@ -23,6 +23,8 @@
 			<input type="text" id="url" class="form-control">
 			<button type="button" id="urlCheckBtn" class="btn btn-info ml-3">중복확인</button>
 		</div>
+		<small id="duplicationText" class="text-danger d-none">중복된 URL입니다.</small>
+		<small id="avaliableText" class="text-success d-none">저장 가능한 URL입니다.</small>
 		<small id="urlStatusArea"></small>
 		
 		<input type="button" id="add" class="btn btn-success mt-3 w-100" value="추가">
@@ -30,6 +32,7 @@
 	
 	<script>
 		$(document).ready(function() {			
+			// 중복확인
 			$('#urlCheckBtn').on('click', function() {
 				$('#urlStatusArea').empty();
 				
@@ -37,14 +40,20 @@
 				//console.log(url);
 				
 				if (url == '') {
-					$('#urlStatusArea').append('<span class="text-danger">url이 비어있습니다</span>');
+					alert("url이 비어있습니다")
+					return;
+				}
+				
+				if (!url.startsWith("http") && !url.startsWith("https")) {
+					alert("http또는 https프로토콜로 시작하는 주소를 입력해주세요") // 주소 형식이 잘못되었습니다.
 					return;
 				}
 				
 				$.ajax({
 					// Request
-					type:"get"
-					, url:"/lesson06/quiz01/isDuplication"
+					// get방식은 크기의 한계(url길이)가 있을 수 있기때문에 post로 보내기
+					type:"post"
+					, url:"/lesson06/quiz02/is_Duplication"
 					, data:{"url":url}
 				
 					// Response
@@ -52,13 +61,19 @@
 						//alert(data); {딕셔너리}형태로 
 						//alert(data.is_duplication)
 						if (data.is_duplication) {
-							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>');
+							// 중복
+							//$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>');
+							$('#avaliableText').addClass("d-none"); // 숨기기
+							$('#duplicationText').removeClass("d-none");
 						} else if (!data.is_duplication) {
-							$('#urlStatusArea').append('<span class="text-danger">저장 가능한 url입니다</span>');
+							// 사용 가능한 URL
+							//$('#urlStatusArea').append('<span class="text-danger">저장 가능한 url입니다</span>');
+							$('#duplicationText').addClass("d-none"); // 숨기기
+							$('#avaliableText').removeClass("d-none");
 						}
 					}
 					, error:function(e) {
-						alert("중복확인 에러" + e);
+						alert("중복확인 에러 " + e);
 					}
 				});
 			});

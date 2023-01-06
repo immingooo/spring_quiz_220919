@@ -1,0 +1,10 @@
+@charset "UTF-8";
+#wrap{height: 1000px; width:1200px; margin:auto;}
+header {height: 100px;}
+nav {height: 40px; background-color:#FF8C00;}
+.contents {min-height:500px;}
+footer {height: 90px;}
+
+.footer-text {font-size:13px; color:#888;}
+.box1 {height: 250px; background-color:#A0522D;}
+.box2 {height: 250px; background-color:#D2691E;}
