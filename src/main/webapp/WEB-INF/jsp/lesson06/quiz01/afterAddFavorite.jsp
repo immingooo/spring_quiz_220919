@@ -57,7 +57,8 @@
 					// Response
 					, success:function(data) {
 						if (data.result == "삭제성공") {
-							location.href="/lesson06/quiz01/after_add_favorite_view";
+							location.reload();
+							/* "/lesson06/quiz01/after_add_favorite_view"; */
 						}
 					}
 					, error:function(e) {
