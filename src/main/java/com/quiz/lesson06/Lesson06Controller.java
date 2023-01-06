@@ -30,24 +30,30 @@ public class Lesson06Controller {
 		return "lesson06/quiz01/addFavorite";
 	}
 	
+	// url 중복확인 - AJAX 통신 요청
 	@ResponseBody
 	@GetMapping("/quiz01/isDuplication")
-	public Map<String, Boolean> isDuplication() {
-		
-	}
-	
-	// 즐겨찾기 추가 - AJAX 통신 요청
-	@ResponseBody // 응답값이 jsp가 아니다.
-	@PostMapping("/quiz01/add_favorite")
-	public Map<String, Boolean> addFavorite(
-			@RequestParam("name") String name,
+	public Map<String, Boolean> isDuplication(
 			@RequestParam("url") String url) {
 		
 		Map<String, Boolean> result = new HashMap<>();
 		result.put("is_duplication", favoriteBO.existFavoriteByUrl(url));
 		
+		return result;
+	}
+	
+	// 즐겨찾기 추가 - AJAX 통신 요청
+	@ResponseBody // 응답값이 jsp가 아니다.
+	@PostMapping("/quiz01/add_favorite")
+	public Map<String, String> addFavorite(
+			@RequestParam("name") String name,
+			@RequestParam("url") String url) {
+		
 		// DB insert
-		//favoriteBO.addFavorite(name, url);
+		favoriteBO.addFavorite(name, url);
+		
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "성공");
 		
 		//return "성공";
 		return result; // jackson라이브러리 => JSON String으로 내려간다.
@@ -62,5 +68,20 @@ public class Lesson06Controller {
 		model.addAttribute("favoriteList", favoriteList);
 		
 		return "lesson06/quiz01/afterAddFavorite";
+	}
+	
+	// 삭제버튼 화면 - AJAX 통신 요청
+	@ResponseBody
+	@GetMapping("/quiz01/delete_favorite") 
+	public Map<String, String> deleteFavorite(
+			@RequestParam("id") int id) {
+		
+		// DB delete
+		favoriteBO.deleteFavoriteById(id);
+		
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "삭제성공");
+		
+		return result;
 	}
 }

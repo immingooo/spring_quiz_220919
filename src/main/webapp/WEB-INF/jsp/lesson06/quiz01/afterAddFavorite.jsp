@@ -23,18 +23,50 @@
 					<th>No.</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:forEach var="favorite" items="${favoriteList}">
 				<tr>
-					<td>${favorite.id}</td>
+					<td class="id">${favorite.id}</td>
 					<td>${favorite.name}</td>
 					<td><a href="${favorite.url}">${favorite.url}</a></td>
+					<td><button type="button" class="btn btn-danger deleteFavoriteBtn">삭제</button></td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('.deleteFavoriteBtn').on('click', function() {
+				//alert('1111');
+				let currentRow = $(this).closest('tr');
+				
+				let id = currentRow.find('td:eq(0)').text().trim();
+				console.log(id);
+				
+				$.ajax({
+					// Request
+					type:"get"
+					, url:"/lesson06/quiz01/delete_favorite"
+					, data:{"id":id}
+				
+					// Response
+					, success:function(data) {
+						if (data.result == "삭제성공") {
+							location.href="/lesson06/quiz01/after_add_favorite_view";
+						}
+					}
+					, error:function(e) {
+						alert("삭제에러" + e);
+					}
+					
+				});
+			});
+		});
+	</script>
 </body>
 </html>

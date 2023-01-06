@@ -39,4 +39,12 @@
  		WHERE
  			`url` = #{url}
  	</select>
+ 	
+ 	<delete id="deleteFavoriteById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`favorites`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
  </mapper>

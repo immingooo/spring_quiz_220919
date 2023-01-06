@@ -31,25 +31,34 @@
 	<script>
 		$(document).ready(function() {			
 			$('#urlCheckBtn').on('click', function() {
+				$('#urlStatusArea').empty();
+				
 				let url = $('#url').val().trim();
-				console.log(url);
+				//console.log(url);
+				
+				if (url == '') {
+					$('#urlStatusArea').append('<span class="text-danger">url이 비어있습니다</span>');
+					return;
+				}
 				
 				$.ajax({
 					// Request
 					type:"get"
-					, url:"/lesson06/quiz01/add_favorite"
+					, url:"/lesson06/quiz01/isDuplication"
 					, data:{"url":url}
 				
 					// Response
 					, success:function(data) { // String JSON => object으로 변환해줌.
 						//alert(data); {딕셔너리}형태로 
-						alert(data.is_duplication)
+						//alert(data.is_duplication)
 						if (data.is_duplication) {
-							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>')
+							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>');
+						} else if (!data.is_duplication) {
+							$('#urlStatusArea').append('<span class="text-danger">저장 가능한 url입니다</span>');
 						}
 					}
 					, error:function(e) {
-						alert("에러" + e);
+						alert("중복확인 에러" + e);
 					}
 				});
 			});
@@ -90,15 +99,12 @@
 					// Response
 					, success:function(data) { // String JSON => object으로 변환해줌.
 						//alert(data); {딕셔너리}형태로 
-						if (data.is_duplication) {
-							alert(data.is_duplication)
-							$('#urlStatusArea').append('<span class="text-danger">중복된 url입니다</span>')
-						} else {
+						if (data.result == "성공") {
 							location.href="/lesson06/quiz01/after_add_favorite_view";
 						}
 					}
 					, error:function(e) {
-						alert("에러" + e);
+						alert("insert 에러" + e);
 					}
 				});
 			});
