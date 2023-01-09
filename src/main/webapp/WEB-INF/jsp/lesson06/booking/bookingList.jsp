@@ -60,11 +60,14 @@
 						<td>${booking.phoneNumber}</td>
 						<td>
 							<c:choose>
-								<c:when test="${booking.state eq '대기중'}">
+								<c:when test="${booking.state eq \"대기중\"}">
 									<span class="text-info">${booking.state}</span>
 								</c:when>
 								<c:when test="${booking.state eq '확정'}">
 									<span class="text-success">${booking.state}</span>
+								</c:when>
+								<c:when test="${booking.state eq '취소'}">
+									<span class="text-danger">${booking.state}</span>
 								</c:when>
 							</c:choose>
 						</td>
@@ -88,7 +91,8 @@
 	<script>
 		$(document).ready(function() {
 			$('.delBtn').on('click', function() {
-				let id = $(this).data('booking-id');
+				let id = $(this).data('booking-id'); // 내가 클릭한 하나만 들고오기 위해 this로 가져온다.
+				//alert(id); // ajax하기 전에 먼저 점검을 해야 나중에 에러가 생겨도 감당할 수 있음(단계별 점검)
 				
 				$.ajax({
 					// Request
@@ -98,14 +102,18 @@
 				
 					// Response
 					, success:function(data) {
+						// {"code":1, "result":"성공"}
+						// {"code":2, "result":"실패", "error_message":"삭제하는데 실패했습니다"}
 						if (data.code == 1) {
 							location.reload(true);
 						} else if (data.code == 500) {
+							// 호출을 잘 됐는데 오류났을 때
 							alert(data.error_message);
 						}
 					}
 					, error:function(e) {
-						alert("에러 " + e);
+						// 사용자가 봄 (이 에러가 나면 요청(Request)하는 것부터 봐야함)
+						alert("삭제하는데 통신이 실패했습니다. " + e);
 					}
 				});
 			});

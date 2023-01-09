@@ -89,37 +89,42 @@
 				$("#img").attr("src","/img/booking/test06_banner" + num + ".jpg");
 			}, 3000);
 			
-			$('#searchBtn').on('click', function(){				
+			$('#searchBtn').on('click', function(){		
+				//alert('얼럿창 확인');
 				let name = $('#name').val().trim();
-				let phoneNumber = $('#phoneNumber').val();
+				let phoneNumber = $('#phoneNumber').val().trim();
 				
 				if(name == '') {
-					alert('이름을 입력해주세요')
+					alert('이름을 입력해주세요');
 					return;
 				}
 				if(phoneNumber == '') {
-					alert('전화번호를 입력해주세요')
+					// 010으로 시작하는지 확인할 수도 있음
+					alert('전화번호를 입력해주세요');
 					return;
 				}
 				
 				$.ajax({
-					type:"get"
+					type:"post"
 					, url:"/lesson06/booking/search_booking"
 					, data:{"name":name, "phoneNumber":phoneNumber}
 				
 					, success:function(data) {
 						if (data.code == 1) {
-							alert("이름: " + data.name +"\n"
-									+ "날짜: " + data.date + "\n"
-									+ "일수: " + data.day + "\n"
-									+ "인원: " + data.headcount + "\n"
-									+ "상태: " + data.state)
+							// 조회된 내역이 있을 때 
+							alert("이름: " + data.booking.name +"\n"
+									+ "날짜: " + data.booking.date.slice(0, 10) + "\n"
+									+ "일수: " + data.booking.day + "\n"
+									+ "인원: " + data.booking.headcount + "\n"
+									+ "상태: " + data.booking.state)
 						} else if (data.code == 500) {
+							// 조회된 내역이 없을 때 또는 (로직)에러 상황
 							alert(data.result)
 						}
 					}
 					, error:function(e) {
-						alert("에러 " + e)
+						// 사용자가 볼만한 문구로
+						alert("조회에 실패했습니다. " + e)
 					}
 				});
 			});

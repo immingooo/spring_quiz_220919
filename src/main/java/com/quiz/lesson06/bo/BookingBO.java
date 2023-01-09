@@ -32,6 +32,7 @@ public class BookingBO {
 		return bookingDAO.insertBooking(name, date, day, headcount, phoneNumber);
 	}
 	
+	//getLatestBookingByNamePhonenumber
 	public Booking getBookingByFields(String name, String phoneNumber) {
 		return bookingDAO.selectBookingByFields(name, phoneNumber);
 	}

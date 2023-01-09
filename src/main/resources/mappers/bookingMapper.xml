@@ -68,5 +68,7 @@
  			`name` = #{name}
  			AND
  			`phoneNumber` = #{phoneNumber}
+ 		ORDER BY `id` DESC
+ 		LIMIT 1
  	</select>
  </mapper>
